@@ -1,0 +1,20 @@
+Q1.]
+
+db.Film.insertOne({FilmId: 101, Title: "Avengers", ReleaseYear: 2012, Genre: "Action, Sci-fi", Actors: [{ActorID: 1001, ActorFirstName: "Robert", ActorLastName: "Downey Jr."}, {ActorID: 1002, ActorFirstName: "Chris ", ActorLastName: "Evans"}], Director: { DirFirstName: "Joss", DirLastName: "Whedon"}});                      
+
+db.Film.insertMany([{FilmId: 102, Title: "Captain America: The Winter Soldier", ReleaseYear: 2014, Genre: ["Action", "Adventure"], Actors: [{ActorID: 1001, ActorFirstName: "Sebastian ", ActorLastName: "Stan"}, {ActorID: 1002, ActorFirstName: "Chris ", ActorLastName: "Evans"}, {ActorID: 1003, ActorFirstName: "Anthony", ActorLastName: "Mackie"}], Director: [{DirID: 1, DirFirstName: "Joe", DirLastName: "Russo"}, {DirID: 2, DirFirstName: "Anthony", DirLastName: "Russo"}]}, {FilmId: 103, Title: "Thor", ReleaseYear: 2011, Genre: ["Action", "Fantasy"], Actors: [{ActorID: 1001, ActorFirstName: "Chris", ActorLastName: "Hemsworth"}, {ActorID: 1002, ActorFirstName: "Natalie", ActorLastName: "Portman"}, {ActorID: 1003, ActorFirstName: "Tom", ActorLastName: "Hiddleston"}], Director: [{DirID: 1, DirFirstName: "Kenneth", DirLastName: "Branagh"}]}]);                      
+
+
+
+db.Film.insertOne({FilmId: 102, Title: "The Last Samurai", ReleaseYear: 2003, Genre: "Action, Drama, War", Actors: [{ActorID: 1003, ActorFirstName: "Tom", ActorLastName: "Cruise"}, {ActorID: 1004, ActorFirstName: "Ken", ActorLastName: "Watanabe"}, {ActorID: 1005, ActorFirstName: "Timothy", ActorLastName: "Spall"}], Director: {DirFirstName: "Edward", DirLastName: "Zwick"}, ReleaseInfo: [{ReleasePlace: "Japan", ReleaseDate: "November 20, 2003"}, {ReleasePlace: "United Kingdom", ReleaseDate: "January 9, 2004"}, {ReleasePlace: "Spain", ReleaseDate: "January 9, 2004"}]});
+
+-----
+
+Q2.]
+
+db.createCollection("Actor");
+
+db.Actor.insertMany([{ ActorID: 1001, FirstName: 'Andrew', LastName: 'Garfield', Address: [{Street: "12-13 Poland St.", City: "London", State: "Greater London", Country: "United Kingdom", Pincode: "W1F 8QB"}], ContactDetails: [{EmailID: "", PhoneNo: ""}], Age: 42}, { ActorID: 1002, FirstName: 'Chris', LastName: 'Evans', Address: [{Street: "25 Maple Grove", City: "Boston", State: "Massachusetts", Country: "United States", Pincode: "02108"}], ContactDetails: [{EmailID: "chris.evans@example.com", PhoneNo: "+1 (202) 555-0183"}], Age: 45}, { ActorID: 1003, FirstName: 'Robert', LastName: 'Downey Jr.', Address: [{Street: "48 Sunset Ridge", City: "Los Angeles", State: "California", Country: "United States", Pincode: "90069"}], ContactDetails: [{EmailID: "robert.downey@example.com", PhoneNo: "+1 (202) 555-0164"}], Age: 61}]);
+
+
+-------------------------------------------------------------END---------------------------------------------------------------
