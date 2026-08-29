@@ -1,0 +1,28 @@
+Q2]
+
+use Company
+
+db.createCollection("Employee");
+
+db.Employee.insertOne({EmpID: 101, Name: {firstName: "Yunus", lastName: "Bagewadi"}, Email: "yunus.bagewadi@email.com", PhoneNo: 86682188563, Address: {HouseNo: 901, Street: "City Main Street", City: "Pune", State: "Maharashtra", Country: "India", PinCode: 4301945}, Salary: 925000, Designation: "Senior Developer", Experience: "6 Years", DOJ: "29 August 2028", DOB: "5 February 2005"});
+
+db.Employee.insertMany([{EmpID: 102, Name: {firstName: "Sumaiya", lastName: "Burud"}, Email: "sumaiya.burud@email.com", PhoneNo: 7493588563, Address: {HouseNo: 902, Street: "East Street, Camp", City: "Pune", State: "Maharashtra", Country: "India", PinCode: 534545}, Salary: 925000, Designation: "Junior Developer", Experience: "3 Years", DOJ: "24 April 2023", DOB: "29 December 2005"}, {EmpID: 103, Name: {firstName: "Muzammil", lastName: "Bagewadi"}, Email: "muzammil.bagewadi@email.com", PhoneNo: 7874588563, Address: {HouseNo: 903, Street: "Airport Street", City: "Mumbai", State: "Maharashtra", Country: "India", PinCode: 674545}, Salary: 1205000, Designation: "Cheif Engineer", Experience: "12 Years", DOJ: "21 July 2021", DOB: "13 July 2005"}, {EmpID: 104, Name: {firstName: "Umar", lastName: "Shaikh"}, Email: "umar.shaikh@email.com", PhoneNo: 4568965543, Address: {HouseNo: 904, Street: "MG Street", City: "Bangalore", State: "Karnataka", Country: "India", PinCode: 912545}, Salary: 1105000, Designation: " Vice Cheif Engineer", Experience: "9 Years", DOJ: "21 July 2022", DOB: "27 November 2003"}, {EmpID: 104, Name: {firstName: "Sangram", lastName: "Rajput"}, Email: "sangram.rajput@email.com", PhoneNo: 9559565543, Address: {HouseNo: 905, Street: "Bhagwan Das Road", City: "Jaipur", State: "Rajasthan", Country: "India", PinCode: 302005}, Salary: 805000, Designation: "Chartered Accountant", Experience: "3 Years", DOJ: "8 August 2025", DOB: "10 March 2005"}]);
+
+---
+
+Q3]
+
+db.createCollection("Transaction");
+
+db.Transaction.insertMany([{TransId: 1, TransDate: new Date("2020-03-27"), Name: {firstName: "Yunus", lastName: "Bagewadi"}, TransDetail: {ItemID: 11, ItemName: "Novel Book", ItemQuantity: 5, Price: 250}, Payment: {TypeOfPayment: "Debit", TotalAmtPaid: 1250, PaymentStatus: "Successful"}, Remark: "Smooth Transaction Journey!"}, {TransId: 2, TransDate: new Date("2021-06-25"), Name: {firstName: "Sumaiya", lastName: "Burud"}, TransDetail: {ItemID: 12, ItemName: "Ceramic coffee mug", ItemQuantity: 1, Price: 300}, Payment: {TypeOfPayment: "Cash", TotalAmtPaid: 300, PaymentStatus: "Successful"}, Remark: "I wanted this cup from such a long time, Yay!"}, {TransId: 3, TransDate: new Date("2022-04-19"), Name: {firstName: "Muzammil", lastName: "Bagewadi"}, TransDetail: {ItemID: 13, ItemName: "Mechanical pencil", ItemQuantity: 3, Price: 150}, Payment: {TypeOfPayment: "Credit", TotalAmtPaid: 450, PaymentStatus: "Failed"}, Remark: "Worst Shopping Experience Ever (-_-)!"}, {TransId: 4, TransDate: new Date("2023-09-12"), Name: {firstName: "Umar", lastName: "Shaikh"}, TransDetail: {ItemID: 14, ItemName: "Electric toothbrush", ItemQuantity: 2, Price: 1800}, Payment: {TypeOfPayment: "Debit", TotalAmtPaid: 3600, PaymentStatus: "Successful"}, Remark: "Electric Brush huh?! I'm Interested Already!!!"}, {TransId: 5, TransDate: new Date("2025-01-29"), Name: {firstName: "Sangram", lastName: "Rajput"}, TransDetail: {ItemID: 15, ItemName: "Wireless earbuds", ItemQuantity: 1, Price: 2500}, Payment: {TypeOfPayment: "Cash", TotalAmtPaid: 2500, PaymentStatus: "Successful"}, Remark: "Music Is Essential For me and so is this earphone!"}]);
+
+-----
+
+Queries on Q2 & Q3]
+
+db.Employee.find().pretty();
+
+db.Transaction.find().pretty();
+
+db.Employee.update();
+
