@@ -1,0 +1,43 @@
+4.]Update Salary Of Employee:
+
+db.Employee.update({EmpID: 101}, {$inc:{Salary: 85000}});
+
+----------
+5.] Update Remark of Transaction
+
+db.Transaction.update({TransId: 1}, {$set: {Remark: 'Smooth Transaction Journey! WOW!!'}});
+
+----------
+6.] Update the designation of an employee named "_______"
+
+db.Employee.update({Name: {firstName: 'Sumaiya', lastName: 'Burud'}}, {$set: {Designation: "Senior Developer"}});
+
+----------
+7.] Update Designation of an employee having Employee ID as ___
+
+db.Employee.update({EmpID: 101}, {$set: {Designation: "Senior Architecture Engineer"}});
+
+----------
+8.] Change Address of Employee having Employee ID ___
+
+db.Employee.update({EmpID: 101}, {$set: {Address: {HouseNo: 910, Street: 'Billi-Bois Main Street', City: 'Cyber-Pune', State: 'Maharashtra', Country: 'India', PinCode: 4301945 }}});
+
+----------
+9.] Delete Transaction made by "_____" Employee on the given date.
+
+db.Transaction.deleteOne({Name: {firstName: 'Umar', lastName: 'Shaikh'}, TransDate: ISODate('2023-09-12T00:00:00.000Z')});
+
+----------
+10.] Delete all Employees whose first Name starts with "K"
+
+db.Employee.deleteMany({"Name.firstName": /^U/});
+
+
+
+-----------------------------------------------ASSIGNMENT 2 OVER ------------------------------------------------
+
+-----------------------------------------------ASSIGNMENT 3 START -----------------------------------------------
+
+Q1.] Find the titles of all the films starting with the letter "R"
+
+
