@@ -1,0 +1,68 @@
+1.]
+
+db.Film.find({ Title: /^A/i })
+
+------
+
+2.]
+
+db.Film.find({ ReleaseYear: { $lt: 2019 } })
+
+------
+
+3.]
+
+db.Actor.find( { FirstName: 'Chris', LastName: 'Evans' } ).pretty()
+
+
+------
+
+4.] 
+
+db.Film.find({ ReleaseYear: { $gte: 1990, $lte: 1999 } })
+
+db.Film.find({ ReleaseYear: { $gte: 2010, $lte: 2015 } })
+
+db.Film.find({ ReleaseYear: { $gte: 2010, $lte: 2012 } })
+
+------
+
+5.] 
+
+db.Film.find({ Genre: { $all: ['Action', 'Adventure']} })
+
+------
+
+6.]
+
+db.Film.find().sort({ Title: 1, ReleaseYear: -1 })
+
+db.Film.find().sort({ ReleaseYear: -1 })
+
+db.Film.find().sort({ Title: 1 })
+
+------
+
+7.]
+
+db.Actor.find().sort({ Age: 1 })
+
+db.Actor.find().sort({ Age: -1 })
+
+------
+
+8.]
+
+db.Film.find({ Genre: { $in: ['Action', 'Adventure']},  ReleaseYear: { $gt: 2013 } })
+
+------
+
+9.] Show the latest 2 films acted by an actor "___"
+
+db.Film.find({ "Actors.ActorFirstName": "Chris", "Actors.ActorLastName": "Evans" }).sort({ ReleaseYear: -1 }).limit(2)
+
+------
+
+10.] Retrive Films with actor details
+
+db.Film.find( {}, { Title: 1, Actors: 1 } )
