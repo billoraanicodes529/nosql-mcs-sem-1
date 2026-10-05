@@ -1,0 +1,3 @@
+Neo4j Practical 1 - Task Which Was Left Incomplete
+
+Create 2 Nodes and Create a Relationship Between Them. (I have a pic of the relationship)

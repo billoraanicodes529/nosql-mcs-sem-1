@@ -1,0 +1,4 @@
+name,description,query,id,parentId,isFolder,isProtected
+Drafts,,,0,,true,true
+Neo4j-Prt-1-26-Sept-2026,,,1,,true,false
+hello,,"RETURN ""Hello, Graph Database!"" AS message;",2,1,false,false

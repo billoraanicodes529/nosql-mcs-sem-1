@@ -1,0 +1,95 @@
+Neo4j Assignment 1
+
+Q1.] Create a node "Book":
+
+CREATE (b1: Book {Title: 'Story Book', Condition: 'New', Cost: 450, Type: 'Novel'})
+
+CREATE (b2: Book {Title: 'DBMS', Condition: 'New', Cost: 600, Type: 'Journal'})
+
+Create node person:
+
+CREATE (p1: Person {Name: 'Amit Sharma', Role: 'Author'}), (p2: Person {Name: 'Neha Patil', Role: 'Reader'}), (p3: Person {Name: 'Rahul Joshi', Role: 'Reviewer'})
+
+Create node publisher:
+
+CREATE (pub1: Publisher {Name: 'Oxford Publications'}), (pub2: Publisher {Name: 'Pearson Education'})
+
+Creating Relationships:
+
+1.] Published by:
+
+MATCH (b1: Book {Title: 'Story Book'}), (b2: Book {Title: 'DBMS'}), (pub1: Publisher {Name: 'Oxford Publications'}), (pub2: Publisher {Name: 'Pearson Education'})
+
+CREATE (b1)-[:PUBLISHED_BY]->(pub1),
+       (b2)-[:PUBLISHED_BY]->(pub2)
+	   
+
+2.] REVIEWED_BY
+
+MATCH  (b1: Book {Title: 'Story Book'}), 
+	   (b2: Book {Title: 'DBMS'}), 
+	   (p3: Person {Name: 'Rahul Joshi'})
+
+CREATE (b1)-[:REVIEWED_BY]->(p3),
+       (b2)-[:REVIEWED_BY]->(p3)
+	   
+	   
+	
+3.] ISSUED_BY
+
+MATCH  (b1: Book {Title: 'Story Book'}), 
+	   (b2: Book {Title: 'DBMS'}), 
+	   (reader1: Person {Name: 'Neha Patil'})
+	  
+CREATE (b1)-[:ISSUED_BY]->(reader1),
+       (b2)-[:ISSUED_BY]->(reader1)
+	   
+	   
+	   
+4.] RETURNED_BY
+
+MATCH  (b1: Book {Title: 'Story Book'}),
+	   (reader1: Person {Name: 'Neha Patil'})
+	   
+CREATE (b1)-[:RETURNED_BY]->(reader1)
+
+5.] AUTHORED
+
+MATCH  (b1: Book {Title: 'Story Book'}),
+	   (author: Person {Name: 'Amit Sharma'})
+	   
+CREATE (author)-[:AUTHORED]->(b1)
+
+*.] Display Complete Graph:
+
+MATCH (a)-[r]->(b) RETURN a, r, b 
+
+
+-----------------------------------------------------------------------------------------
+
+Queries:
+
+1.] List all people, who have issued a book "...."
+
+MATCH (p: Person)<-[:ISSUED_BY]-(b: Book) WHERE b.Title = "Story Book" RETURN p;
+
+2.] Count the number of people who have read "...."
+
+MATCH (p: Person)<-[:ISSUED_BY]-(b: Book) WHERE b.Title = "Story Book" RETURN count(p) AS NumberOfPeople;
+
+3.] List the names of publishers from pune city.
+
+MATCH (p: Publisher) WHERE p.City = "Pune" RETURN p.Name;
+
+4.] Display the titles and costs of all books.
+
+MATCH (b: Book) RETURN b.Title, b.Cost;
+
+5.] Update the cost of "Story Book" to 500.
+
+MATCH (b: Book {Title: 'Story Book'}) SET b.Cost = 500 RETURN b.Title, b.Cost;
+
+6.] Which publisher has published the book "Story Book"?
+
+MATCH (b: Book {Title: 'Story Book'})-[:PUBLISHED_BY]->(p: Publisher) RETURN p.Name;
+
