@@ -1,0 +1,50 @@
+name,description,query,id,parentId,isFolder,isProtected
+Neo4j-Assignment-2,,,0,,true,false
+creating-nodes,,"CREATE (a: Artist {name: 'A.R. Rahman'}),
+(s1: Song {name: 'Jai Ho', release_year: 2008, genre: 'Film'}),
+(s2: Song {name: 'Vande Mataram', release_year: 1997, genre: 'Patriotic'}),
+(sa1: Song_Author {name: 'Gulzar'}),
+(sa2: Song_Author {name: 'Mehboob'}),
+(rs: Recording_Studio {name: 'Yash Raj Studio', location: 'Mumbai'}),
+(rc: Recording_Company {name: 'T-Series', location: 'Mumbai'});",1,0,false,false
+performs-relationship,,"MATCH (a: Artist {name: 'A.R. Rahman'}),
+      (s1: Song {name: 'Jai Ho'}),
+      (s2: Song {name: 'Vande Mataram'})
+CREATE (a)-[:PERFORMS]->(s1),
+       (a)-[:PERFORMS]->(s2)",2,0,false,false
+written-by-relationship,,"MATCH (s1:Song {name: ""Jai Ho""}),
+      (s2:Song {name: ""Vande Mataram""}),
+      (sa1:Song_Author {name: ""Gulzar""}),
+      (sa2:Song_Author {name: ""Mehboob""})
+CREATE (s1)-[:WRITTEN_BY]->(sa1),
+       (s2)-[:WRITTEN_BY]->(sa2);",3,0,false,false
+recorded-in-relationship,,"MATCH (s1:Song {name: ""Jai Ho""}),
+      (s2:Song {name: ""Vande Mataram""}),
+      (rs:Recording_Studio {name: ""Yash Raj Studio""})
+CREATE (s1)-[:RECORDED_IN]->(rs),
+       (s2)-[:RECORDED_IN]->(rs);",4,0,false,false
+managed-by-relationship,,"MATCH (rs:Recording_Studio {name: ""Yash Raj Studio""}),
+      (rc:Recording_Company {name: ""T-Series""})
+CREATE (rs)-[:MANAGED_BY]->(rc);",5,0,false,false
+finances-relationship,,"MATCH (rc:Recording_Company {name: ""T-Series""}),
+      (s1:Song {name: ""Jai Ho""}),
+      (s2:Song {name: ""Vande Mataram""})
+CREATE (rc)-[:FINANCES {amount: 500000}]->(s1),
+       (rc)-[:FINANCES {amount: 400000}]->(s2);",6,0,false,false
+return-all-nodes-and-relationships,,"MATCH (n)
+RETURN n;",7,0,false,false
+query-1,,"MATCH (s:Song)-[:WRITTEN_BY]->(a:Song_Author)
+WHERE a.name = ""Gulzar""
+RETURN s.name AS Song_Name;",8,0,false,false
+query-2,,"MATCH (c:Recording_Company)-[:FINANCES]->(s:Song)
+WHERE s.name = ""Jai Ho""
+RETURN c.name AS Recording_Company;",9,0,false,false
+query-3,,"MATCH (a:Artist)-[:PERFORMS]->(s:Song)
+WHERE s.name = ""Jai Ho""
+RETURN a.name AS Artist_Name;",10,0,false,false
+query-4,,"MATCH (s:Song)-[:RECORDED_IN]->(studio:Recording_Studio)
+WHERE studio.name = ""Yash Raj Studio""
+RETURN s.name AS Song_Name;",11,0,false,false
+query-5,,"MATCH (s:Song)-[:RECORDED_IN]->(studio:Recording_Studio)
+WHERE s.name = ""Jai Ho""
+RETURN studio.name AS Recording_Studio;",12,0,false,false

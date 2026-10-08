@@ -1,0 +1,42 @@
+name,description,query,id,parentId,isFolder,isProtected
+neo4j-assignment-1,,,0,,true,false
+neo4j-assign-1-q1-create-node-book,,"CREATE (b1: Book {Title: 'Story Book', Condition: 'New', Cost: 450, Type: 'Novel'}), (b2: Book {Title: 'DBMS', Condition: 'New', Cost: 600, Type: 'Journal'})",1,0,false,false
+neo4j-assign-1-q1-create-node-person,,"CREATE (p1: Person {Name: 'Amit Sharma', Role: 'Author'}), (p2: Person {Name: 'Neha Patil', Role: 'Reader'}), (p3: Person {Name: 'Rahul Joshi', Role: 'Reviewer'})",2,0,false,false
+neo4j-assign-1-q1-create-node-publisher,,"CREATE (pub1: Publisher {Name: 'Oxford Publications'}), (pub2: Publisher {Name: 'Pearson Education'})",3,0,false,false
+neo4j-assign-1-q1-create-rel-published-by,,"MATCH (b1: Book {Title: 'Story Book'}), (b2: Book {Title: 'DBMS'}), (pub1: Publisher {Name: 'Oxford Publications'}), (pub2: Publisher {Name: 'Pearson Education'})
+
+CREATE (b1)-[:PUBLISHED_BY]->(pub1),
+       (b2)-[:PUBLISHED_BY]->(pub2)",4,0,false,false
+neo4j-assign-1-q1-create-rel-authored,,"MATCH  (b1: Book {Title: 'Story Book'}),
+	   (author: Person {Name: 'Amit Sharma'})
+	   
+CREATE (author)-[:AUTHORED]->(b1)",5,0,false,false
+neo4j-assign-1-q1-create-rel-reviewed-by,,"MATCH  (b1: Book {Title: 'Story Book'}), 
+	   (b2: Book {Title: 'DBMS'}), 
+	   (p3: Person {Name: 'Rahul Joshi'})
+
+CREATE (b1)-[:REVIEWED_BY]->(p3),
+       (b2)-[:REVIEWED_BY]->(p3)",6,0,false,false
+neo4j-assign-1-q1-create-rel-returned-by,,"MATCH  (b1: Book {Title: 'Story Book'}),
+	   (reader1: Person {Name: 'Neha Patil'})
+	   
+CREATE (b1)-[:RETURNED_BY]->(reader1)",7,0,false,false
+neo4j-assign-1-q1-create-rel-issued-by,,"MATCH  (b1: Book {Title: 'Story Book'}), 
+	   (b2: Book {Title: 'DBMS'}), 
+	   (reader1: Person {Name: 'Neha Patil'})
+	  
+CREATE (b1)-[:ISSUED_BY]->(reader1),
+       (b2)-[:ISSUED_BY]->(reader1)",8,0,false,false
+display-complete-graph,,"MATCH (a)-[r]->(b) RETURN a, r, b",9,0,false,false
+return-all,,"MATCH (n) 
+RETURN n",10,0,false,false
+neo4j-assign-1-q1-query-list-people-who-issued-book,,"MATCH (p: Person)<-[:ISSUED_BY]-(b: Book) WHERE b.Title = ""Story Book"" RETURN p;",11,0,false,false
+neo4j-assign-1-q1-query-count-people-who-issued-book,,"MATCH (p: Person)<-[:ISSUED_BY]-(b: Book) WHERE b.Title = ""Story Book"" RETURN count(p) AS NumberOfPeople;",12,0,false,false
+neo4j-assign-1-q1-query-list-publishers-from-pune-city,,"MATCH (p: Publisher) WHERE p.City = ""Pune"" RETURN p.Name;",13,0,false,false
+neo4j-assign-1-q1-query-find-book-publisher,,MATCH (b: Book {Title: 'Story Book'})-[:PUBLISHED_BY]->(p: Publisher) RETURN p.Name;,14,0,false,false
+neo4j-assign-1-q1-query-display-book-titles-and-cost,,"MATCH (b: Book) RETURN b.Title, b.Cost;",15,0,false,false
+neo4j-assign-1-q1-query-update-book-cost,,"MATCH (b: Book {Title: 'Story Book'}) SET b.Cost = 500 RETURN b.Title, b.Cost;",16,0,false,false
+neo4j-assign-1-q1-query-list-people-who-reviewed-book,,MATCH (b: Book {Title: 'Story Book'})-[:REVIEWED_BY]->(p: Person) RETURN p.Name;,17,0,false,false
+neo4j-assign-1-q1-query-list-books-issued-by-person,,MATCH (b: Book)-[:ISSUED_BY]->(p: Person) WHERE p.Name = 'Neha Patil' RETURN b.Title;,18,0,false,false
+9-people-who-issued-the-book,,MATCH (b: Book {Title: 'Story Book'})-[:ISSUED_BY]->(p: Person) RETURN p.Name;,19,0,false,false
+10-names-and-their-roles,,"MATCH (p: Person) RETURN p.Name, p.Role;",20,0,false,false

@@ -93,3 +93,18 @@ MATCH (b: Book {Title: 'Story Book'}) SET b.Cost = 500 RETURN b.Title, b.Cost;
 
 MATCH (b: Book {Title: 'Story Book'})-[:PUBLISHED_BY]->(p: Publisher) RETURN p.Name;
 
+7.] Which person has reviewed the book "Story Book"?
+
+MATCH (b: Book {Title: 'Story Book'})-[:REVIEWED_BY]->(p: Person) RETURN p.Name;
+
+8.] Which books have been issued by "neha"?
+
+MATCH (b: Book)-[:ISSUED_BY]->(p: Person) WHERE p.Name = 'Neha Patil' RETURN b.Title;
+
+9.] List the names of persons who have issued the book "Story Book"
+
+MATCH (b: Book {Title: 'Story Book'})-[:ISSUED_BY]->(p: Person) RETURN p.Name;
+
+10.] List the names and their roles of person from above graph
+
+MATCH (p: Person) RETURN p.Name, p.Role;

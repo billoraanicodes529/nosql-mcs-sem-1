@@ -1,0 +1,131 @@
+Q2.] Consider a Song Database:
+
+Task 1.] CREATE NODES
+
+1.] 
+
+CREATE (a: Artist {name: 'A.R. Rahman'}),
+(s1: Song {name: 'Jai Ho', release_year: 2008, genre: 'Film'}),
+(s2: Song {name: 'Vande Mataram', release_year: 1997, genre: 'Patriotic'}),
+(sa1: Song_Author {name: 'Gulzar'}),
+(sa2: Song_Author {name: 'Mehboob'}),
+(rs: Recording_Studio {name: 'Yash Raj Studio', location: 'Mumbai'}),
+(rc: Recording_Company {name: 'T-Series', location: 'Mumbai'});
+
+
+Task 2.] CREATE RELATIONSHIPS
+
+1.] Artist->[Performs]->Song[Written by]->Song_Author
+
+MATCH (a: Artist {name: 'A.R. Rahman'}),
+      (s1: Song {name: 'Jai Ho'}),
+      (s2: Song {name: 'Vande Mataram'})
+CREATE (a)-[:PERFORMS]->(s1),
+       (a)-[:PERFORMS]->(s2)
+	   
+---
+
+2.] CREATE  SONG -> AUTHOR WRITTEN_BY RELATIONSHIP
+
+MATCH (s1:Song {name: "Jai Ho"}),
+      (s2:Song {name: "Vande Mataram"}),
+      (sa1:Song_Author {name: "Gulzar"}),
+      (sa2:Song_Author {name: "Mehboob"})
+CREATE (s1)-[:WRITTEN_BY]->(sa1),
+       (s2)-[:WRITTEN_BY]->(sa2);
+	   
+
+3.] CREATE SONG -> RECORDING STUDIO RECORDED_IN RELATIONSHIP
+
+MATCH (s1:Song {name: "Jai Ho"}),
+      (s2:Song {name: "Vande Mataram"}),
+      (rs:Recording_Studio {name: "Yash Raj Studio"})
+CREATE (s1)-[:RECORDED_IN]->(rs),
+       (s2)-[:RECORDED_IN]->(rs);
+	   
+
+4.] CREATE STUDIO -> COMPANY MANAGED_BY RELATIONSHIP
+
+MATCH (rs:Recording_Studio {name: "Yash Raj Studio"}),
+      (rc:Recording_Company {name: "T-Series"})
+CREATE (rs)-[:MANAGED_BY]->(rc);
+
+
+5.] CREATE COMPANY -> SONG FINANCES RELATIONSHIP
+
+MATCH (rc:Recording_Company {name: "T-Series"}),
+      (s1:Song {name: "Jai Ho"}),
+      (s2:Song {name: "Vande Mataram"})
+CREATE (rc)-[:FINANCES {amount: 500000}]->(s1),
+       (rc)-[:FINANCES {amount: 400000}]->(s2);
+
+6.] DISPLAY ALL NODES AND RELATIONSHIPS
+
+MATCH (n)
+RETURN n;
+
+------------------------------------------------------
+
+Queries:
+
+a) List the names of songs written by a particular song author
+
+MATCH (s:Song)-[:WRITTEN_BY]->(a:Song_Author)
+WHERE a.name = "Author Name"
+RETURN s.name AS Song_Name;
+For example, to find songs written by Gulzar:
+
+MATCH (s:Song)-[:WRITTEN_BY]->(a:Song_Author)
+WHERE a.name = "Gulzar"
+RETURN s.name AS Song_Name;
+
+b) List the names of record companies who have financed a particular song
+
+MATCH (c:Recording_Company)-[:FINANCES]->(s:Song)
+WHERE s.name = "Song Name"
+RETURN c.name AS Recording_Company;
+
+For example, for Jai Ho:
+
+MATCH (c:Recording_Company)-[:FINANCES]->(s:Song)
+WHERE s.name = "Jai Ho"
+RETURN c.name AS Recording_Company;
+
+c) List the names of artists performing a particular song
+
+MATCH (a:Artist)-[:PERFORMS]->(s:Song)
+WHERE s.name = "Song Name"
+RETURN a.name AS Artist_Name;
+
+For example, for Jai Ho:
+
+MATCH (a:Artist)-[:PERFORMS]->(s:Song)
+WHERE s.name = "Jai Ho"
+RETURN a.name AS Artist_Name;
+
+d) List the songs recorded by a particular recording studio
+
+MATCH (s:Song)-[:RECORDED_IN]->(studio:Recording_Studio)
+WHERE studio.name = "Studio Name"
+RETURN s.name AS Song_Name;
+
+For example, for Yash Raj Studio:
+
+MATCH (s:Song)-[:RECORDED_IN]->(studio:Recording_Studio)
+WHERE studio.name = "Yash Raj Studio"
+RETURN s.name AS Song_Name;
+
+e) List the names of recording studios where a particular song has been recorded
+
+MATCH (s:Song)-[:RECORDED_IN]->(studio:Recording_Studio)
+WHERE s.name = "Song Name"
+RETURN studio.name AS Recording_Studio;
+
+For example, for Jai Ho:
+
+MATCH (s:Song)-[:RECORDED_IN]->(studio:Recording_Studio)
+WHERE s.name = "Jai Ho"
+RETURN studio.name AS Recording_Studio;
+
+
+--------------------------------------------------------------------------------
