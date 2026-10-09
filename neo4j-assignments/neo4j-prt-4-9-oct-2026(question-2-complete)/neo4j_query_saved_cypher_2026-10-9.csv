@@ -1,0 +1,104 @@
+name,description,query,id,parentId,isFolder,isProtected
+Assignment-1-Question-3-Employee-DB,,,0,,true,false
+a-Create-Employee,,"CREATE
+(e1:Employee {name:""Rahul"", emp_id:101}),
+(e2:Employee {name:""Priya"", emp_id:102}),
+(e3:Employee {name:""Amit"", emp_id:103}),
+(e4:Employee {name:""Sneha"", emp_id:104}),
+(e5:Employee {name:""Vijay"", emp_id:105});",1,0,false,false
+b-Create Departments,,"CREATE
+(d1:Department {name:""Computer Science""}),
+(d2:Department {name:""Human Resources""});",2,0,false,false
+c-Create Projects,,"CREATE
+(p1:Projects {name:""Library Management System""}),
+(p2:Projects {name:""Employee Portal""});",3,0,false,false
+d-Create Skillsets,,"CREATE
+(s1:Skillset {name:""Java""}),
+(s2:Skillset {name:""Python""}),
+(s3:Skillset {name:""SQL""}),
+(s4:Skillset {name:""Web Development""}),
+(s5:Skillset {name:""Data Analysis""});",4,0,false,false
+e-Works_in-relationship,,"MATCH (e1:Employee {emp_id:101}), (e2:Employee {emp_id:102}),
+      (e3:Employee {emp_id:103}), (e4:Employee {emp_id:104}),
+      (e5:Employee {emp_id:105}),
+      (d1:Department {name:""Computer Science""}),
+      (d2:Department {name:""Human Resources""})
+CREATE
+(e1)-[:Works_in]->(d1),
+(e2)-[:Works_in]->(d1),
+(e3)-[:Works_in]->(d1),
+(e4)-[:Works_in]->(d2),
+(e5)-[:Works_in]->(d2);",5,0,false,false
+f-Has_acquired relationship,,"MATCH (e1:Employee {emp_id:101}), (e2:Employee {emp_id:102}),
+      (e3:Employee {emp_id:103}), (e4:Employee {emp_id:104}),
+      (e5:Employee {emp_id:105}),
+      (s1:Skillset {name:""Java""}),
+      (s2:Skillset {name:""Python""}),
+      (s3:Skillset {name:""SQL""}),
+      (s4:Skillset {name:""Web Development""}),
+      (s5:Skillset {name:""Data Analysis""})
+CREATE
+(e1)-[:Has_acquired]->(s1),
+(e1)-[:Has_acquired]->(s3),
+(e2)-[:Has_acquired]->(s2),
+(e2)-[:Has_acquired]->(s4),
+(e3)-[:Has_acquired]->(s1),
+(e3)-[:Has_acquired]->(s3),
+(e4)-[:Has_acquired]->(s5),
+(e5)-[:Has_acquired]->(s2);",6,0,false,false
+g-Assigned_to relationship,,"MATCH (e1:Employee {emp_id:101}), (e2:Employee {emp_id:102}),
+      (e3:Employee {emp_id:103}), (e4:Employee {emp_id:104}),
+      (e5:Employee {emp_id:105}),
+      (p1:Projects {name:""Library Management System""}),
+      (p2:Projects {name:""Employee Portal""})
+CREATE
+(e1)-[:Assigned_to]->(p1),
+(e2)-[:Assigned_to]->(p1),
+(e3)-[:Assigned_to]->(p1),
+(e4)-[:Assigned_to]->(p2),
+(e5)-[:Assigned_to]->(p2);",7,0,false,false
+h-Controlled_by relationships,,"MATCH (p1:Projects {name:""Library Management System""}),
+      (p2:Projects {name:""Employee Portal""}),
+      (d1:Department {name:""Computer Science""}),
+      (d2:Department {name:""Human Resources""})
+CREATE
+(p1)-[:Controlled_by]->(d1),
+(p2)-[:Controlled_by]->(d2);",8,0,false,false
+i-Project_manager relationship,,"MATCH (e1:Employee {emp_id:101}),
+      (p1:Projects {name:""Library Management System""})
+CREATE
+(e1)-[:Project_manager]->(p1);",9,0,false,false
+x-Return-all-Nodes-and-Relationships,,"// Return all Nodes and Relationships
+
+MATCH (n)
+OPTIONAL MATCH (n)-[r]-()
+RETURN n, r;",10,0,false,false
+"1-List the names of employees in department ""BPO""",,"MATCH (e:Employee)-[:Works_in]->(d:Department)
+WHERE d.name = ""BPO""
+RETURN e.name AS Employee;",11,0,false,false
+2-List the projects along with their properties,,"MATCH (p:Projects)-[:Controlled_by]->(d:Department)
+WHERE d.name = ""IT""
+RETURN p;",12,0,false,false
+3-List the departments along with the count of employees in it,,"MATCH (d:Department)
+OPTIONAL MATCH (e:Employee)-[:Works_in]->(d)
+RETURN d.name AS Department, COUNT(e) AS Employee_Count;",13,0,false,false
+"4-List the skillset for an employee ""Jayson""",,"// 4.] List the skillset for an employee ""Jayson""
+
+MATCH (e:Employee)-[:Has_acquired]->(s:Skillset)
+WHERE e.name = ""Jayson""
+RETURN e.name AS Employee, s.name AS Skillset;",14,0,false,false
+"5-List the projects controlled by department ""BPO""",,"// 5.] List the projects controlled by department ""BPO""
+//     and have employees of the same department working in it
+
+MATCH (p:Projects)-[:Controlled_by]->(d:Department)
+MATCH (e:Employee)-[:Works_in]->(d)
+MATCH (e)-[:Assigned_to]->(p)
+WHERE d.name = ""BPO""
+RETURN DISTINCT p.name AS Project;",15,0,false,false
+6-List the names of the projects belonging to departments,,"// 6.] List the names of the projects belonging to departments
+//     managed by employee ""Kevin""
+
+MATCH (e:Employee)-[:Project_manager]->(p:Projects)
+MATCH (p)-[:Controlled_by]->(d:Department)
+WHERE e.name = ""Kevin""
+RETURN DISTINCT p.name AS Project;",16,0,false,false
